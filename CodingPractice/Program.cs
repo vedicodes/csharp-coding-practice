@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-LognestSubString.Run();
+﻿LognestSubString.Run();
 
 class AsyncPractice
 {
