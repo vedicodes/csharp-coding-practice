@@ -10,9 +10,11 @@ import { Observable } from "rxjs";
 export class SampleComponent {
 
     data$: Observable<Object>;
+    sharedData$: Observable<string>;
 
     constructor(private sampleService: SampleService) {
         this.data$ = sampleService.getSampleData();
+        this.sharedData$ = sampleService.sharedData.asObservable();
     }
 
 }
