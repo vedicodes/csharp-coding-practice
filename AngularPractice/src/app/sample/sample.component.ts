@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SampleService } from "./sample.service";
 import { Observable } from "rxjs";
 
@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
     templateUrl: "./sample.component.html",
     styleUrls: [ "./sample.component.scss" ]
 })
-export class SampleComponent {
+export class SampleComponent implements OnInit {
 
     data$: Observable<Object>;
     sharedData$: Observable<string>;
@@ -15,6 +15,10 @@ export class SampleComponent {
     constructor(private sampleService: SampleService) {
         this.data$ = sampleService.getSampleData();
         this.sharedData$ = sampleService.sharedData.asObservable();
+    }
+
+    ngOnInit(): void {
+        throw Error("Manual Error!");
     }
 
 }
