@@ -1,4 +1,6 @@
-﻿MostSoldAuthor.Run();
+﻿using System.Text;
+
+LognestSubString.Run();
 
 class AsyncPractice
 {
@@ -198,5 +200,37 @@ class MostSoldAuthor
         .FirstOrDefault();
 
         Console.WriteLine(result);
+    }
+}
+
+class LognestSubString
+{
+    public static void Run()
+    {
+        var inputStr = "aavvcccaa";
+        var uniqueSquenceStr = new List<char> { inputStr.First() };
+        for(int i = 1; i < inputStr.Length; i++)
+        {
+            if (uniqueSquenceStr.Last() != inputStr[i])
+                uniqueSquenceStr.Add(inputStr[i]);
+        }
+        Console.WriteLine(string.Join("", uniqueSquenceStr));
+
+        var outputStr = "";
+        var windowLst = new List<char> { inputStr.First() };
+        for(int i = 1; i < inputStr.Length; i++)
+        {
+            if (windowLst.Contains(inputStr[i]))
+            {
+                windowLst.Clear();
+            }
+            windowLst.Add(inputStr[i]);
+            if (windowLst.Count >= outputStr.Length)
+            {
+                outputStr = string.Join("", windowLst);
+            }
+        }
+
+        Console.WriteLine(outputStr);
     }
 }
