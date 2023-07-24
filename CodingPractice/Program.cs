@@ -232,3 +232,193 @@ class LognestSubString
         Console.WriteLine(outputStr);
     }
 }
+
+public interface ITesting1
+{
+    int Add();
+}
+
+public interface ITesting2
+{
+    int Add();
+}
+
+class Addition : ITesting1, ITesting2
+{
+    int ITesting1.Add()
+    {
+        return 1;
+    }
+    int ITesting2.Add()
+    {
+        return 2;
+    }
+}
+
+class Example
+{
+    public static void Run()
+    {
+        ITesting1 testing1 = new Addition();
+        Console.WriteLine(testing1.Add());
+        ITesting2 testing2 = new Addition();
+        Console.WriteLine(testing2.Add());
+    }
+}
+
+class RemoveDuplicate
+{
+    public static void Run()
+    {
+        var inputStr = "aacAxTyAssDwADFGtRFGH@$^&*346@#$%dfgh".ToUpperInvariant();
+        var result = new List<char>();
+        for(int i = 0; i < inputStr.Length; i++)
+        {
+            var isNotInserted = true;
+            foreach(var insertedChar in result)
+            {
+                isNotInserted = char.ToLowerInvariant(insertedChar) != char.ToLowerInvariant(inputStr[i]);
+                if (!isNotInserted)
+                    break;
+            }
+            if(isNotInserted)
+            {
+                result.Add(inputStr[i]);
+            }
+        }
+        Console.WriteLine(string.Join("", result));
+    }
+}
+
+sealed class SingletonBusiness
+{
+    private SingletonBusiness()
+    {
+
+    }
+
+    private static SingletonBusiness _business { get; set;}
+
+    public static SingletonBusiness business
+    {
+        get
+        {
+            if (_business == null)
+            {
+                _business = new SingletonBusiness();
+            }
+            return _business;
+        }
+    }
+}
+
+static class TestingStatic
+{
+    static TestingStatic()
+    {
+
+    }
+    static void Run()
+    {
+        Console.WriteLine("Static Class");
+    }
+}
+
+class TestingShadowBase
+{
+    public void Run()
+    {
+        Console.WriteLine("TestingShadowBase Run Method.");
+    }
+}
+
+class TestingShadowDerived : TestingShadowBase
+{
+    public new void Run()
+    {
+        base.Run();
+        Console.WriteLine("TestingShadowDerived Run Method.");
+    }
+}
+
+public class TestingCode
+{
+    
+    public void TestingOverloading(string str1)
+    {
+        Console.WriteLine("{0}", str1);
+    }
+
+    public bool TestingOverloading(string str1, string str2)
+    {
+        Console.WriteLine("{0}, {1}", str1, str2);
+        return true;
+    }
+
+    public int TestingOverloading(int num1)
+    {
+        Console.WriteLine("{0}", num1);
+        return num1;
+    }
+    
+    /*
+    Note: In method overloading the return type of the method doesn't matter only the parameters matter.
+    */
+
+    public delegate void Callback(string message);
+
+    public static void HelloWorldMsg(string msg)
+    {
+        Console.WriteLine("Hello, World From {0}", msg);
+    }
+
+    public void HelloIamMsg(string name)
+    {
+        Console.WriteLine("Hello, I'm {0}", name);
+    }
+
+    public static void Run()
+    {
+        Callback callback = HelloWorldMsg;
+        var testCode = new TestingCode();
+        callback += testCode.HelloIamMsg;
+        callback("The Developer!");
+    }
+}
+
+public delegate void Notify();
+
+public class EventNotification
+{
+    public event Notify ProcessCompleted;
+
+    public void Run()
+    {
+        Console.WriteLine("Process Started");
+        for(int i = 0; i < 10; i++)
+        {
+            Console.WriteLine("{0}", i + 1);
+        }
+        OnProcessCompleted();
+    }
+
+    public void OnProcessCompleted()
+    {
+        ProcessCompleted?.Invoke();
+    }
+}
+
+public class EventNotificationSub
+{
+    public static void Run()
+    {
+        var eventNoti = new EventNotification();
+        eventNoti.ProcessCompleted += OnProcessCompleted;
+        eventNoti.Run();
+    }
+
+    public static void OnProcessCompleted()
+    {
+        Console.WriteLine("Process Completed!");
+    }
+}
